@@ -187,6 +187,85 @@
             background-color: #e5bc00;
         }
         
+        /* 키워드 섹션 */
+        .keyword-section {
+            margin-bottom: 32px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #f1f3f5;
+        }
+        
+        .keyword-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+        
+        .keyword-box {
+            background-color: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .keyword-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333d4b;
+        }
+        
+        .keyword-btn {
+            width: 100%;
+            background-color: #FCD20B;
+            color: #452614;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+        }
+        
+        .keyword-btn:active {
+            transform: scale(0.98);
+            background-color: #e5bc00;
+        }
+        
+        .keyword-tip {
+            font-size: 13px;
+            color: #6b7684;
+            text-align: center;
+        }
+        
+        .keyword-example {
+            background-color: #f9fafb;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+        
+        .keyword-example p {
+            font-size: 13px;
+            color: #6b7684;
+            line-height: 1.5;
+        }
+        
+        /* 본문 섹션 */
+        .body-section {
+            margin-bottom: 0;
+        }
+        
+        .body-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+        
         .link-section {
             margin-top: 28px;
             padding-top: 24px;
@@ -203,25 +282,23 @@
         
         .site-links {
             display: flex;
-            justify-content: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 10px;
         }
         
         .site-link {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 96px;
-            height: 56px;
+            width: 100%;
+            height: 64px;
             background-color: #fff;
             border: 1px solid #e5e8eb;
             border-radius: 14px;
             text-decoration: none;
             transition: all 0.25s ease;
-            font-weight: 600;
-            font-size: 12px;
-            color: #333d4b;
             box-shadow: 0 0 0 rgba(252, 210, 11, 0);
+            overflow: hidden;
         }
         
         .site-link:hover,
@@ -234,21 +311,22 @@
             transform: scale(0.97);
         }
         
-        .site-link.albamon {
-            color: #000;
-            font-weight: 800;
-            font-size: 11px;
+        .site-link img {
+            max-height: 32px;
+            width: auto;
+            object-fit: contain;
         }
         
-        .site-link.alba {
-            color: #FFB800;
-            font-weight: 700;
-            font-size: 11px;
+        .site-link.albamon img {
+            max-height: 28px;
         }
         
-        .site-link.daangn {
-            color: #FF6F0F;
-            font-weight: 600;
+        .site-link.alba img {
+            max-height: 26px;
+        }
+        
+        .site-link.daangn img {
+            max-height: 30px;
         }
         
         /* 섹션 2: 챌린지 소개 */
@@ -515,18 +593,11 @@
             text-align: center;
         }
         
-        .qr-example-placeholder {
-            width: 140px;
-            height: 140px;
-            background-color: #fff;
-            border: 1px solid #e5e8eb;
+        .qr-example-img {
+            width: 200px;
+            height: auto;
             border-radius: 12px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8b95a1;
-            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         .qr-example-label {
@@ -594,23 +665,42 @@
         
         <!-- 섹션 1: 복사할 문구 -->
         <div class="card copy-card">
-            <h2 class="card-title"><span class="emoji">📋</span>공고에 이 문구만 추가하세요</h2>
+            <h2 class="card-title"><span class="emoji">📋</span>공고에 이 내용을 추가해보세요!</h2>
             
-            <div class="copy-box">
-                <p class="copy-text">
-                    <span class="highlight">💰 패스오더 시급 2배 챌린지 참여 매장!</span>
-                    시급 외 월 최대 60만원 추가로 벌 수 있어요.<br>(선착순 마감)
-                </p>
+            <!-- 제목 키워드 안내 -->
+            <div class="keyword-section">
+                <p class="keyword-label">📌 공고 제목에 이 키워드를 넣어보세요</p>
+                <div class="keyword-box">
+                    <p class="keyword-text">[시급 2배 이벤트 진행 중]</p>
+                </div>
+                <div class="keyword-example">
+                    <p>ex) [시급 2배 이벤트 진행 중] 패스커피 강남점에서 주말 알바를 구해요</p>
+                </div>
+                <button class="keyword-btn" onclick="copyKeyword()">키워드 복사하기</button>
+                <p class="keyword-tip">제목에 추가하면 지원 확률이 2배는 높아질 거예요!</p>
             </div>
             
-            <button class="copy-btn" onclick="copyText()">📋 복사하기 📋</button>
+            <!-- 본문 복사 -->
+            <div class="body-section">
+                <p class="body-label">📝 공고 본문에 아래 내용을 붙여넣으세요</p>
+                <div class="copy-box">
+                    <p class="copy-text">
+                        <span class="highlight">💰 패스오더 '시급 2배 챌린지' 참여 매장</span>
+                        저희 매장은 패스오더 '시급 2배 챌린지'에 선정된 매장이에요!<br><br>
+                        패스오더에서 도입 매장 근무자분들과의 상생을 위해 알바분들의 추가 수입을 지원하는 프로그램을 운영하고 있어요.<br><br>
+                        이 챌린지에 참여하시면 시급과 별개로 월 최대 60만원까지 추가로 벌 수 있어요.<br><br>
+                        단, 선착순으로 진행되고 예산이 정해져 있어서 조기 마감될 수 있어요!
+                    </p>
+                </div>
+                <button class="copy-btn" onclick="copyText()">📋 본문 복사하기 📋</button>
+            </div>
             
             <div class="link-section">
-                <p class="link-guide">위 문구를 복사한 후, 아래 알바 채용 사이트<br>바로가기 링크를 클릭하여 공고를 작성/수정 해주세요!</p>
+                <p class="link-guide">위 내용을 복사한 후, 아래 알바 채용 사이트에서<br>공고를 작성/수정 해주세요!</p>
                 <div class="site-links">
-                    <a href="https://www.albamon.com" target="_blank" class="site-link albamon">ALBAMON</a>
-                    <a href="https://www.alba.co.kr" target="_blank" class="site-link alba">알바천국</a>
-                    <a href="https://www.daangn.com" target="_blank" class="site-link daangn">🥕 당근</a>
+                    <a href="https://www.albamon.com/" target="_blank" class="site-link albamon"><img src="albamon_logo.png" alt="알바몬"></a>
+                    <a href="https://www.alba.co.kr/" target="_blank" class="site-link alba"><img src="alba_logo.png" alt="알바천국"></a>
+                    <a href="https://www.daangn.com/kr/" target="_blank" class="site-link daangn"><img src="daangn_logo.png" alt="당근"></a>
                 </div>
             </div>
         </div>
@@ -643,8 +733,8 @@
             <div class="contact-card">
                 <p class="contact-title">💬 문의하기</p>
                 <div class="contact-buttons">
-                    <a href="#" class="contact-btn">문의 채널에 남기기</a>
-                    <a href="#" class="contact-btn">1:1 문의하기</a>
+                    <a href="https://passorder.kr/e2zIF3ai" target="_blank" class="contact-btn">문의 채널에 남기기</a>
+                    <a href="https://passorder.kr/NabSZFl1" target="_blank" class="contact-btn">1:1 문의하기</a>
                     <a href="sms:010-8436-5209" class="contact-btn primary">
                         <span class="sms-main">📱 문자 문의 010-8436-5209</span>
                         <span class="sms-sub">※ 전화 불가, 문자로만 문의 및 안내 가능</span>
@@ -658,37 +748,37 @@
         
         <!-- 섹션 3: 알바 안내 -->
         <div class="card">
-            <h2 class="card-title"><span class="emoji">👋</span>알바 들어오면 이렇게 안내하세요</h2>
+            <h2 class="card-title"><span class="emoji">👋</span>알바 들어오면 이렇게 안내해주세요!</h2>
             
             <div class="script-section">
-                <p class="script-label">알바가 "이게 뭐예요?" 물어봤을 때<br>아래 내용을 복사해서 답해주세요</p>
+                <p class="script-label">알바가 "이게 뭐예요?" 물어봤을 때 아래 내용을 복사해서 답해주세요</p>
                 <div class="script-box">
                     <p class="script-text">
-                        저희 매장이 패스오더 가맹점이에요.<br><br>
-                        패스오더에서 '시급 2배 챌린지'라는 프로그램이 있어서 손님한테 패스오더 첫 주문 유도하면 건당 2,000원씩 추가로 받을 수 있어요.<br><br>
-                        열심히 하면 월 60만원까지 가능해요!
+                        저희 매장이 패스오더 '시급 2배 챌린지'에 선정됐어요!<br><br>
+                        패스오더에서 알바분들 추가 수입을 지원하는 프로그램인데, 손님한테 패스오더 첫 주문을 유도하면 건당 2,000원씩 받을 수 있어요.<br><br>
+                        열심히 하면 시급 외에 월 최대 60만원까지 추가로 벌 수 있어요!
                     </p>
                 </div>
                 <button class="script-btn" onclick="copyScript()">📋 복사하기 📋</button>
             </div>
             
             <div class="alba-link-section">
-                <p class="alba-link-label">채용 후, 알바에게 아래 링크를 보내주세요</p>
+                <p class="alba-link-label">채용 후, 알바에게 참여 링크를 복사해서 보내주세요</p>
                 <button class="alba-link-btn" onclick="copyAlbaLink()">🔗 알바 참여 링크 복사</button>
             </div>
             
             <div class="alba-note">
-                <p>링크 전달 외에도<br><strong>패스오더 POS 내 '노란 포스트잇'의<br>QR 코드를 인식해서도 참여 가능해요!</strong></p>
+                <p>링크 전달 외에도<br><strong>패스오더 POS 프로그램 내 '노란 포스트잇'의<br>QR 코드를 인식해서도 참여 가능해요!</strong></p>
                 <div class="qr-example">
-                    <div class="qr-example-placeholder">QR 예시 이미지</div>
-                    <p class="qr-example-label">▲ POS 내 노란 포스트잇 예시</p>
+                    <img src="pos_postit.png" alt="POS 프로그램 내 노란 포스트잇" class="qr-example-img">
+                    <p class="qr-example-label">▲ POS 프로그램 내 노란 포스트잇 위치</p>
                 </div>
             </div>
         </div>
         
         <!-- 푸터 -->
         <footer class="footer">
-            <p>© 패스오더 파트너지원팀</p>
+            <p>© 패스오더</p>
         </footer>
     </div>
     
@@ -701,7 +791,7 @@
         // ============================================
         const CONFIG = {
             GOOGLE_SHEET_URL: 'https://script.google.com/macros/s/AKfycbzPdm5zDX2R6a0gsqD9NgOnw7-Dga2reuUtzKbLg5C1Gu2rSxGRN6b1_Lx2hi7bSawG/exec',
-            ALBA_LINK_BASE: 'https://passorder.com/alba-challenge'
+            ALBA_LINK_BASE: 'https://paytalab-m.github.io/part-timer-application-form/?channel='
         };
 
         // ============================================
@@ -798,26 +888,41 @@
         // 이벤트 핸들러들
         // ============================================
         
-        // 공고 문구 복사
-        function copyText() {
-            const text = `💰 패스오더 시급 2배 챌린지 참여 매장!
-
-시급 외 월 최대 60만원 추가로 벌 수 있어요.
-(선착순 마감)`;
+        // 제목 키워드 복사
+        function copyKeyword() {
+            const text = `[시급 2배 이벤트 진행 중]`;
             
             navigator.clipboard.writeText(text).then(() => {
-                showToast('✓ 복사 완료');
-                logToGoogleSheet('copy_job_posting', '공고 문구 복사');
+                showToast('✓ 키워드 복사 완료');
+                logToGoogleSheet('copy_job_keyword', '제목 키워드 복사');
+            });
+        }
+        
+        // 공고 본문 복사
+        function copyText() {
+            const text = `💰 패스오더 '시급 2배 챌린지' 참여 매장
+
+저희 매장은 패스오더 '시급 2배 챌린지'에 선정된 매장이에요!
+
+패스오더에서 도입 매장 근무자분들과의 상생을 위해 알바분들의 추가 수입을 지원하는 프로그램을 운영하고 있어요.
+
+이 챌린지에 참여하시면 시급과 별개로 월 최대 60만원까지 추가로 벌 수 있어요.
+
+단, 선착순으로 진행되고 예산이 정해져 있어서 조기 마감될 수 있어요!`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('✓ 본문 복사 완료');
+                logToGoogleSheet('copy_job_posting', '공고 본문 복사');
             });
         }
 
         // 스크립트 복사
         function copyScript() {
-            const text = `저희 매장이 패스오더 가맹점이에요.
+            const text = `저희 매장이 패스오더 '시급 2배 챌린지'에 선정됐어요!
 
-패스오더에서 '시급 2배 챌린지'라는 프로그램이 있어서 손님한테 패스오더 첫 주문 유도하면 건당 2,000원씩 추가로 받을 수 있어요.
+패스오더에서 알바분들 추가 수입을 지원하는 프로그램인데, 손님한테 패스오더 첫 주문을 유도하면 건당 2,000원씩 받을 수 있어요.
 
-열심히 하면 월 60만원까지 가능해요!`;
+열심히 하면 시급 외에 월 최대 60만원까지 추가로 벌 수 있어요!`;
             
             navigator.clipboard.writeText(text).then(() => {
                 showToast('✓ 복사 완료');
@@ -827,7 +932,7 @@
 
         // 알바 참여 링크 복사
         function copyAlbaLink() {
-            const albaLink = `${CONFIG.ALBA_LINK_BASE}?channel=${params.channel}`;
+            const albaLink = `${CONFIG.ALBA_LINK_BASE}${params.channel}`;
             
             navigator.clipboard.writeText(albaLink).then(() => {
                 showToast('✓ 링크 복사 완료');
