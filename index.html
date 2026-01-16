@@ -787,63 +787,21 @@
         // ============================================
         const CONFIG = {
             GOOGLE_SHEET_LOG_URL: 'https://script.google.com/macros/s/AKfycbzPdm5zDX2R6a0gsqD9NgOnw7-Dga2reuUtzKbLg5C1Gu2rSxGRN6b1_Lx2hi7bSawG/exec',
-            GOOGLE_SHEET_STORE_URL: 'https://script.google.com/a/macros/paytalab.com/s/AKfycby6zJtu0z-dNTKMJlc5vWORls1dZF298fFQ3nANVE3o3ED_tsNXIqOUBIpCDCQTWyi2/exec',
             ALBA_LINK_BASE: 'https://paytalab-m.github.io/part-timer-application-form/'
-        };
-
-        // ============================================
-        // 전역 변수
-        // ============================================
-        let storeData = {
-            storeId: '',
-            storeName: '매장',
-            channel: 'passorderB0000'
         };
 
         // ============================================
         // URL 파라미터 처리
         // ============================================
-        function getStoreIdFromUrl() {
+        function getUrlParams() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('storeId') || urlParams.get('store_id') || '';
+            return {
+                storeId: urlParams.get('storeId') || urlParams.get('store_id') || '',
+                channel: 'passorder' + (urlParams.get('storeId') || urlParams.get('store_id') || 'B0000')
+            };
         }
 
-        // ============================================
-        // 구글시트에서 매장 정보 조회
-        // ============================================
-        async function fetchStoreInfo(storeId) {
-            if (!storeId) {
-                console.log('storeId 없음 - 기본값 사용');
-                return null;
-            }
-
-            try {
-                const response = await fetch(`${CONFIG.GOOGLE_SHEET_STORE_URL}?storeId=${storeId}`);
-                const result = await response.json();
-                
-                if (result.success && result.data) {
-                    return result.data;
-                } else {
-                    console.log('매장 조회 실패:', result.error);
-                    return null;
-                }
-            } catch (error) {
-                console.error('매장 정보 조회 에러:', error);
-                return null;
-            }
-        }
-
-        // ============================================
-        // 개인화 요소 설정
-        // ============================================
-        function setPersonalization() {
-            // 매장명 배지 설정
-            const badge = document.getElementById('storeBadge');
-            if (storeData.storeName && storeData.storeName !== '매장') {
-                badge.textContent = storeData.storeName + ' 사장님 전용';
-            } else {
-                badge.textContent = '사장님 전용';
-            }
+        const params = getUrlParams();
         }
 
         // ============================================
@@ -854,9 +812,8 @@
                 timestamp: new Date().toISOString(),
                 event_type: eventType,
                 event_detail: eventDetail,
-                channel: storeData.channel,
-                store_name: storeData.storeName,
-                store_id: storeData.storeId,
+                channel: params.channel,
+                store_id: params.storeId,
                 page_url: window.location.href,
                 referrer: document.referrer,
                 user_agent: navigator.userAgent
@@ -867,9 +824,8 @@
             window.dataLayer.push({
                 'event': eventType,
                 'eventDetail': eventDetail,
-                'channel': storeData.channel,
-                'storeName': storeData.storeName,
-                'storeId': storeData.storeId
+                'channel': params.channel,
+                'storeId': params.storeId
             });
 
             // 구글시트로 전송
@@ -962,7 +918,7 @@
 
         // 알바 참여 링크 복사
         function copyAlbaLink() {
-            const albaLink = `${CONFIG.ALBA_LINK_BASE}?channel=${storeData.channel}`;
+            const albaLink = `${CONFIG.ALBA_LINK_BASE}?channel=${params.channel}`;
             
             navigator.clipboard.writeText(albaLink).then(() => {
                 showToast('✓ 링크 복사 완료');
@@ -983,23 +939,7 @@
         // ============================================
         // 페이지 초기화
         // ============================================
-        document.addEventListener('DOMContentLoaded', async function() {
-            // URL에서 storeId 가져오기
-            const storeId = getStoreIdFromUrl();
-            
-            // 구글시트에서 매장 정보 조회
-            if (storeId) {
-                const info = await fetchStoreInfo(storeId);
-                if (info) {
-                    storeData.storeId = info.store_id;
-                    storeData.storeName = info.store_name;
-                    storeData.channel = info.channel;
-                }
-            }
-            
-            // 개인화 설정
-            setPersonalization();
-            
+        document.addEventListener('DOMContentLoaded', function() {
             // 페이지뷰 로깅
             logToGoogleSheet('page_view', '랜딩페이지 진입');
 
