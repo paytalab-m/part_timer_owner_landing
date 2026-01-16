@@ -787,7 +787,7 @@
         // ============================================
         const CONFIG = {
             GOOGLE_SHEET_LOG_URL: 'https://script.google.com/macros/s/AKfycbzPdm5zDX2R6a0gsqD9NgOnw7-Dga2reuUtzKbLg5C1Gu2rSxGRN6b1_Lx2hi7bSawG/exec',
-            GOOGLE_SHEET_STORE_URL: 'https://script.google.com/a/macros/paytalab.com/s/AKfycbwv1GdP0doCtVBeBaZ088XdApJ1al5-mrkHPcm0QM2UgbEGgi9jr9JYRJnRdfWdz4d3/exec',
+            GOOGLE_SHEET_STORE_URL: 'https://script.google.com/a/macros/paytalab.com/s/AKfycby6zJtu0z-dNTKMJlc5vWORls1dZF298fFQ3nANVE3o3ED_tsNXIqOUBIpCDCQTWyi2/exec',
             ALBA_LINK_BASE: 'https://paytalab-m.github.io/part-timer-application-form/'
         };
 
@@ -809,43 +809,28 @@
         }
 
         // ============================================
-        // 구글시트에서 매장 정보 조회 (JSONP 방식)
+        // 구글시트에서 매장 정보 조회
         // ============================================
-        function fetchStoreInfo(storeId) {
-            return new Promise((resolve) => {
-                if (!storeId) {
-                    console.log('storeId 없음 - 기본값 사용');
-                    resolve(null);
-                    return;
-                }
+        async function fetchStoreInfo(storeId) {
+            if (!storeId) {
+                console.log('storeId 없음 - 기본값 사용');
+                return null;
+            }
 
-                // 콜백 함수명 생성
-                const callbackName = 'storeCallback_' + Date.now();
+            try {
+                const response = await fetch(`${CONFIG.GOOGLE_SHEET_STORE_URL}?storeId=${storeId}`);
+                const result = await response.json();
                 
-                // 전역 콜백 함수 등록
-                window[callbackName] = function(result) {
-                    // 스크립트 태그 제거
-                    document.body.removeChild(script);
-                    delete window[callbackName];
-                    
-                    if (result.success && result.data) {
-                        resolve(result.data);
-                    } else {
-                        console.log('매장 조회 실패:', result.error);
-                        resolve(null);
-                    }
-                };
-
-                // JSONP 스크립트 태그 생성
-                const script = document.createElement('script');
-                script.src = `${CONFIG.GOOGLE_SHEET_STORE_URL}?storeId=${storeId}&callback=${callbackName}`;
-                script.onerror = function() {
-                    console.error('매장 정보 조회 에러');
-                    delete window[callbackName];
-                    resolve(null);
-                };
-                document.body.appendChild(script);
-            });
+                if (result.success && result.data) {
+                    return result.data;
+                } else {
+                    console.log('매장 조회 실패:', result.error);
+                    return null;
+                }
+            } catch (error) {
+                console.error('매장 정보 조회 에러:', error);
+                return null;
+            }
         }
 
         // ============================================
